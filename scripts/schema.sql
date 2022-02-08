@@ -1,0 +1,9 @@
+DROP TABLE IF EXISTS plays;
+
+CREATE TABLE plays (
+    id SERIAL,
+    created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    description TEXT NOT NULL,
+    PRIMARY KEY(id)
+);
+

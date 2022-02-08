@@ -1,0 +1,2 @@
+DROP DATABASE gamechartsDB;
+CREATE DATABASE gamechartsDB; 
