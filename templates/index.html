@@ -2,4 +2,11 @@
 
 {% block content %}
     <h1>{% block title %} Welcome to GameCharts {% endblock %}</h1>
+    {% for plays in plays %}
+    <a href="#">
+        <h2>{{ plays['description'] }}</h2>
+    </a>
+    <span class="badge badge-primary">{{ plays['created'] }}</span>
+    <hr>
+{% endfor %}
 {% endblock %}
