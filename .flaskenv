@@ -1,0 +1,2 @@
+FLASK_APP=gamecharts
+FLASK_DEBUG=True
