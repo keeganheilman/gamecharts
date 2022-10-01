@@ -1,6 +1,7 @@
 import os
 from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
+from flask_sqlalchemy import SQLAlchemy, inspect
+from flask_login import LoginManager
 
 
 db = SQLAlchemy()
@@ -31,6 +32,17 @@ def create_app(test_config=None):
     # create tables
     create_db_tables(app)    
 
+    # initialize login_manager 
+    login_manager = LoginManager()
+    login_manager.login_view = "auth.login"
+    login_manager.init_app(app)
+
+    # get user account from user id 
+    @login_manager.user_loader
+    def load_user(user_id):
+        return User.query.get(int(user_id))
+
+
     # a simple page that says hello
     @app.route('/hello')
     def hello():
@@ -40,5 +52,12 @@ def create_app(test_config=None):
 
 
 def create_db_tables(app):
+    # inspector = inspect(db.get_engine(app))
+
+    # if (inspector.has_table("user") &
+    #     True):
+    #     print("Using existing database tables.")
+    # else:
+    db.drop_all(app=app)
     db.create_all(app=app)
-    print("Initialized the database")
+    print("Initialized the database.")
