@@ -4,11 +4,19 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    <link href="{{ url_for('static', filename='style.css') }}" rel="stylesheet">
+    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous"> -->
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
     <title>{% block title %}{% endblock %}</title>
 </head>
 <body>
-    <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+    <div id="head"></div>
+<!-- <div class="alert alert-danger hidden" role="alert">
+<span id="no-cookies" class="hidden warning">You appear to have cookies disabled.</span>
+</div> -->
+<noscript><span class="warning">Redacted requires JavaScript to function properly. Please enable JavaScript in your browser.</span><br/><br/>
+</noscript>
+    <!-- <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
         <div class="container-fluid">
             <button
                 class="navbar-toggler"
@@ -26,7 +34,7 @@
                 </div>
             </div>
         </div>
-    </nav>
+    </nav> -->
     {% with messages = get_flashed_messages(with_categories=True) %}
         {% if messages %}
             {% for category, message in messages %}
@@ -38,7 +46,37 @@
         {% endif %}
     {% endwith %}
 
-    <div class="container">{% block content %}{% endblock %}</div>
-</body>
+
+        <table class="layout" id="maincontent">
+            <tr>
+                <td align="center" valign="middle">
+                    <table class="layout">
+                        <div id="logo">
+                            <ul>
+                                <li><a href="/">home</a></li>
+                                <li><a href="/login">login</a></li>
+                                <li><a href="/register">register</a></li>
+                            </ul>
+                        </div>
+                    </table>
+                    {% block content %}
+                    {% endblock %}
+                </td>
+            </tr>
+
+        </table>
+
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
+<script type="text/javascript">
+    cookie.set('cookie_test', 1, 1);
+    if (cookie.get('cookie_test') != null) {
+        cookie.del('cookie_test');
+    } else {
+        $('#no-cookies').gshow();
+    }
+</script>
+<div id="foot">
+    <span><a href="/">Game Charts</a></span>
+</body>
 </html>

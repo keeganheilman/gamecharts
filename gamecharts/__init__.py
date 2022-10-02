@@ -21,6 +21,7 @@ def create_app(test_config=None):
     from .views import views
     from .auth import auth
 
+
     # register Flask Blueprints
     app.register_blueprint(views, url_prefix="/")
     app.register_blueprint(auth, url_prefix="/")
@@ -47,6 +48,15 @@ def create_app(test_config=None):
     @app.route('/hello')
     def hello():
         return 'Hello, World!'
+
+    
+    @app.errorhandler(404)
+    def not_found():
+        """Page not found."""
+        return make_response(
+            render_template("err/404.html"),
+            404
+        )
 
     return app
 
